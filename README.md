@@ -3,7 +3,6 @@ This repository contains my solution for the Epicure Robotics Software Engineeri
 📌 Epicure Robotics – Software Engineering Task
 
 Author: Samrudh
-Submission Date: 19-Nov
 
 🚀 Project Summary
 
@@ -45,6 +44,7 @@ epicure-robotic-task/
 You should create these folders manually on GitHub and upload the files inside each folder.
 
 🧠 How the System Works (Simple Explanation)
+
 🟦 1. Python Script → MQTT
 
 Reads user input
