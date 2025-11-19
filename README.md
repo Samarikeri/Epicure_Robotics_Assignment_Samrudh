@@ -1,37 +1,12 @@
 # Epicure_Robotics_Assignment_Samrudh
 This repository contains my solution for the Epicure Robotics Software Engineering task. The project focuses on reading sensor data, moving the simulated robot, and implementing the required control functions. The code is written in Python .
-📌 Epicure Robotics – Software Engineering Task
 
-Author: Samrudh
+Epicure Robotics – Software Engineering Assignment
 
-🚀 Project Summary
+This project implements a complete robotic command pipeline using Python → MQTT → ESP32 → STM32 to control a stepper motor and LED through structured commands.
 
-This project implements a command pipeline between:
-
-A Python script (MQTT client)
-
-An ESP32 (MQTT → UART bridge)
-
-An STM32 microcontroller (final motor + LED control)
-
-Commands are typed in the Python script → published to MQTT → received by ESP32 → forwarded via UART to STM32 → STM32 interprets commands and controls the hardware.
-
-Supported Commands
-motor:<steps>:<direction>
-led:on
-led:off
-
-
-Examples:
-
-motor:100:1 → Move motor 100 steps in direction 1
-
-led:on → Turn LED ON
-
-led:off → Turn LED OFF
-
-📂 Folder Structure
-epicure-robotic-task/
+📁 Folder Structure
+Epicure_Robotics_Assignment_Samrudh/
 ├── python_client/
 │   └── mqtt_client.py
 ├── esp32_firmware/
@@ -40,33 +15,91 @@ epicure-robotic-task/
 │   └── main.c
 └── README.md
 
+🔧 Overview
 
-You should create these folders manually on GitHub and upload the files inside each folder.
+The system works like this:
 
-🧠 How the System Works (Simple Explanation)
+Python client publishes commands to an MQTT topic.
 
-🟦 1. Python Script → MQTT
+ESP32 subscribes to the same topic and receives the commands.
 
-Reads user input
+ESP32 forwards the commands via UART to the STM32.
 
-Publishes the command to an MQTT topic
+STM32 parses the command and controls:
 
-Uses paho-mqtt library
+Stepper Motor
 
-🟩 2. ESP32 → MQTT Subscriber
+LED ON/OFF
 
-Connects to Wi-Fi
+Example commands:
+
+motor:100:1 → move motor 100 steps in direction 1
+
+led:on
+
+led:off
+
+🐍 Python Client (mqtt_client.py)
+Requirements
+
+Install the MQTT library:
+
+pip install paho-mqtt
+
+Usage
+
+Run:
+
+python mqtt_client.py
+
+
+Enter commands like:
+
+motor:200:0
+led:on
+
+📡 ESP32 Firmware (esp32_main.ino)
+
+Connects to WiFi
 
 Subscribes to MQTT topic
 
-Any received message is forwarded through UART to STM32
+Receives commands
 
-🟧 3. STM32 → Hardware Control
+Writes received command to UART for STM32
 
-Reads UART commands
+Upload using Arduino IDE.
 
-Parses strings
+🔧 STM32 Firmware (main.c)
 
-If command is motor → move stepper
+Reads UART input from ESP32
 
-If command is LED → turn LED ON/OFF
+Parses command format
+
+Drives stepper motor through GPIO pins
+
+Controls LED
+
+Only main.c is included — CubeMX project is not required for review
+
+📝 Notes for Reviewer
+
+All firmware is cleanly separated for clarity.
+
+The Python script includes command handling and MQTT integration.
+
+ESP32 sketch and STM32 firmware follow the required command packet format exactly.
+
+✔️ How to Test (High-Level)
+
+Run mqtt_client.py
+
+ESP32 must be connected to same MQTT broker
+
+ESP32 will send commands to STM32 via UART
+
+STM32 will operate motor/LED
+
+✉️ Contact
+
+For any clarifications: Samrudh A
