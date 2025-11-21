@@ -34,6 +34,11 @@ void processCommand(char *cmd)
     else if (strncmp(cmd, "motor:", 6) == 0) {
         int steps, dir;
         sscanf(cmd, "motor:%d:%d", &steps, &dir);
+        
+            if(dir == 1)
+                HAL_GPIO_WritePin(DIR_GPIO_Port, DIR_Pin, GPIO_PIN_SET);
+            else
+                HAL_GPIO_WritePin(DIR_GPIO_Port, DIR_Pin, GPIO_PIN_RESET);
 
         for(int i=0; i<steps; i++) {
             HAL_GPIO_WritePin(STEP_GPIO_Port, STEP_Pin, GPIO_PIN_SET);
