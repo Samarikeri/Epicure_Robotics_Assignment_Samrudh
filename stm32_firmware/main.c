@@ -7,6 +7,8 @@ int rxIndex = 0;
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
+    rxBuf[rxIndex] = rxByte; 
+    
     if (huart->Instance == USART2)
     {
         if (rxBuf[rxIndex] == '\n') {
