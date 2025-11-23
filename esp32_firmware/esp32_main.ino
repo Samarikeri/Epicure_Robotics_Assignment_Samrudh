@@ -15,7 +15,7 @@ HardwareSerial STM(2);
 void callback(char* topic, byte* payload, unsigned int length) {
   String cmd = "";
   for (int i = 0; i < length; i++) cmd += (char)payload[i];
-  STM.println(cmd);
+  STM.println(cmd);  //adds cmd + /n automatically
 }
 
 void reconnect() {
